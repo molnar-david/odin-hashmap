@@ -21,7 +21,8 @@ export default class HashMap {
     }
 
     set(key, value) {
-        // Capacity may need to be increased when setting
+        // Increase capacity if needed
+        if (this.#load / this.#capacity >= this.#loadFactor) this.resize();
         let bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         while (node) {
@@ -114,5 +115,16 @@ export default class HashMap {
             }
         });
         return entries;
+    }
+
+    resize() {
+        const entries = this.entries();
+        this.#capacity *= 2;
+        this.clear();
+        entries.forEach((array) => {
+            for (let i = 1; i < array.length; i++) {
+                this.set(array[0], array[i]);
+            }
+        });
     }
 }
