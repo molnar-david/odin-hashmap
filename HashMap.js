@@ -122,9 +122,7 @@ export default class HashMap {
         this.#capacity *= 2;
         this.clear();
         entries.forEach((array) => {
-            for (let i = 1; i < array.length; i++) {
-                this.set(array[0], array[i]);
-            }
+            this.set(array[0], array[1]);
         });
     }
 }
