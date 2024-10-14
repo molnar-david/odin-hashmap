@@ -1,5 +1,8 @@
+import LinkedList from "./LinkedList.js";
+
 export default class HashMap {
-    #buckets = new Array(16);
+    #buckets = new Array(16).fill().map((x) => new LinkedList());
+    #loadFactor = 0.8;
 
     hash(key) {
         let hashCode = 0;
@@ -10,6 +13,18 @@ export default class HashMap {
         }
         return hashCode;
     }
-}
 
-console.log(new HashMap);
+    set(key, value) {
+        console.log(this.hash(key));
+        let bucket = this.#buckets[this.hash(key)];
+        let node = bucket.head;
+        while (node) {
+            if (node.value.key === key) {
+                node.value.value = value;
+                return;
+            }
+            node = node.nextNode;
+        }
+        bucket.append({ key, value });
+    }
+}
