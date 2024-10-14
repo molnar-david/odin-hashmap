@@ -91,4 +91,16 @@ export default class HashMap {
         });
         return keys;
     }
+
+    values() {
+        let values = [];
+        this.#buckets.forEach((bucket) => {
+            let node = bucket.head;
+            while (node) {
+                values.push(node.value.value);
+                node = node.nextNode;
+            }
+        });
+        return values;
+    }
 }
