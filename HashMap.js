@@ -1,7 +1,9 @@
 import LinkedList from "./LinkedList.js";
 
 export default class HashMap {
-    #buckets = new Array(16).fill().map((x) => new LinkedList());
+    #capacity = 16;
+    #load = 0;
+    #buckets = new Array(this.#capacity).fill().map((x) => new LinkedList());
     #loadFactor = 0.8;
 
     hash(key) {
@@ -9,22 +11,36 @@ export default class HashMap {
         const primeNumber = 31;
         for (let i = 0; i < key.length; i++) {
             hashCode = primeNumber * hashCode + key.charCodeAt(i);
-            hashCode %= this.#buckets.length;
+            hashCode %= this.#capacity;
         }
         return hashCode;
     }
 
     set(key, value) {
-        console.log(this.hash(key));
+        // Capacity may need to be increased when setting
         let bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         while (node) {
             if (node.value.key === key) {
                 node.value.value = value;
+                this.#load++;
                 return;
             }
             node = node.nextNode;
         }
         bucket.append({ key, value });
+        this.#load++;
+    }
+
+    get(key) {
+        let bucket = this.#buckets[this.hash(key)];
+        let node = bucket.head;
+        while (node) {
+            if (node.value.key === key) {
+                return node.value.value;
+            }
+            node = node.nextNode;
+        }
+        return node;
     }
 }

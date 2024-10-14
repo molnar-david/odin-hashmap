@@ -11,3 +11,5 @@ hashMap.set('byebyeee', 4);
 console.log(hashMap);
 hashMap.set('hello', 5);
 console.log(hashMap);
+
+console.log(hashMap.get('byebye'));
