@@ -6,6 +6,10 @@ export default class HashMap {
     #buckets = new Array(this.#capacity).fill().map((x) => new LinkedList());
     #loadFactor = 0.8;
 
+    get length() {
+        return this.#load;
+    }
+
     hash(key) {
         let hashCode = 0;
         const primeNumber = 31;

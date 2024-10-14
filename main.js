@@ -16,3 +16,4 @@ console.log(hashMap.get('byebye'));
 console.log(hashMap.has('hello'));
 console.log(hashMap.remove('byebyeee'));
 console.log(hashMap);
+console.log(hashMap.length);
