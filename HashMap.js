@@ -74,4 +74,9 @@ export default class HashMap {
         }
         return false;
     }
+
+    clear() {
+        this.#buckets = new Array(this.#capacity).fill().map((x) => new LinkedList());
+        this.#load = 0;
+    }
 }
