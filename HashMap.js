@@ -27,7 +27,6 @@ export default class HashMap {
         while (node) {
             if (node.value.key === key) {
                 node.value.value = value;
-                this.#load++;
                 return;
             }
             node = node.nextNode;
