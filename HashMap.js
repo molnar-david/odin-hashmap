@@ -103,4 +103,18 @@ export default class HashMap {
         });
         return values;
     }
+
+    entries() {
+        let entries = [];
+        this.#buckets.forEach((bucket) => {
+            let node = bucket.head;
+            while (node) {
+                const key = node.value.key;
+                const value = node.value.value;
+                entries.push({ key, value });
+                node = node.nextNode;
+            }
+        });
+        return entries;
+    }
 }
