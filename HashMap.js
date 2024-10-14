@@ -43,4 +43,16 @@ export default class HashMap {
         }
         return node;
     }
+
+    has(key) {
+        let bucket = this.#buckets[this.hash(key)];
+        let node = bucket.head;
+        while (node) {
+            if (node.value.key === key) {
+                return true;
+            }
+            node = node.nextNode;
+        }
+        return false;
+    }
 }

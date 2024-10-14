@@ -13,3 +13,4 @@ hashMap.set('hello', 5);
 console.log(hashMap);
 
 console.log(hashMap.get('byebye'));
+console.log(hashMap.has('hello'));
