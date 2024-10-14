@@ -109,9 +109,7 @@ export default class HashMap {
         this.#buckets.forEach((bucket) => {
             let node = bucket.head;
             while (node) {
-                const key = node.value.key;
-                const value = node.value.value;
-                entries.push({ key, value });
+                entries.push([node.value.key, node.value.value]);
                 node = node.nextNode;
             }
         });
