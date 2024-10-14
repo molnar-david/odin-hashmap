@@ -4,7 +4,7 @@ export default class HashMap {
     #capacity = 16;
     #load = 0;
     #buckets = new Array(this.#capacity).fill().map((x) => new LinkedList());
-    #loadFactor = 0.8;
+    #loadFactor = 0.75;
 
     get length() {
         return this.#load;
@@ -23,7 +23,7 @@ export default class HashMap {
     set(key, value) {
         // Increase capacity if needed
         if (this.#load / this.#capacity >= this.#loadFactor) this.resize();
-        let bucket = this.#buckets[this.hash(key)];
+        const bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         while (node) {
             if (node.value.key === key) {
@@ -37,7 +37,7 @@ export default class HashMap {
     }
 
     get(key) {
-        let bucket = this.#buckets[this.hash(key)];
+        const bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         while (node) {
             if (node.value.key === key) {
@@ -49,7 +49,7 @@ export default class HashMap {
     }
 
     has(key) {
-        let bucket = this.#buckets[this.hash(key)];
+        const bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         while (node) {
             if (node.value.key === key) {
@@ -61,7 +61,7 @@ export default class HashMap {
     }
 
     remove(key) {
-        let bucket = this.#buckets[this.hash(key)];
+        const bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         let index = 0;
         while (node) {
@@ -82,7 +82,7 @@ export default class HashMap {
     }
 
     keys() {
-        let keys = [];
+        const keys = [];
         this.#buckets.forEach((bucket) => {
             let node = bucket.head;
             while (node) {
@@ -94,7 +94,7 @@ export default class HashMap {
     }
 
     values() {
-        let values = [];
+        const values = [];
         this.#buckets.forEach((bucket) => {
             let node = bucket.head;
             while (node) {
@@ -106,7 +106,7 @@ export default class HashMap {
     }
 
     entries() {
-        let entries = [];
+        const entries = [];
         this.#buckets.forEach((bucket) => {
             let node = bucket.head;
             while (node) {
