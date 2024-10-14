@@ -79,4 +79,16 @@ export default class HashMap {
         this.#buckets = new Array(this.#capacity).fill().map((x) => new LinkedList());
         this.#load = 0;
     }
+
+    keys() {
+        let keys = [];
+        this.#buckets.forEach((bucket) => {
+            let node = bucket.head;
+            while (node) {
+                keys.push(node.value.key);
+                node = node.nextNode;
+            }
+        });
+        return keys;
+    }
 }
