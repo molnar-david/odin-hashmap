@@ -55,4 +55,20 @@ export default class HashMap {
         }
         return false;
     }
+
+    remove(key) {
+        let bucket = this.#buckets[this.hash(key)];
+        let node = bucket.head;
+        let index = 0;
+        while (node) {
+            if (node.value.key === key) {
+                bucket.removeAt(index);
+                this.#load--;
+                return true;
+            }
+            node = node.nextNode;
+            index++;
+        }
+        return false;
+    }
 }
