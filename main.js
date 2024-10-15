@@ -1,4 +1,5 @@
 import HashMap from "./HashMap.js";
+import HashSet from "./HashSet.js";
 
 // let hashMap = new HashMap();
 // hashMap.set('hello', 1);
@@ -44,7 +45,7 @@ import HashMap from "./HashMap.js";
 // console.log(hashMap.entries());
 // console.log(hashMap.keys());
 // console.log(hashMap.values());
-// console.log(hashMap.length);
+// console.log(hashMap.length());
 
 // // hashMap.clear();
 // console.log(hashMap);
@@ -77,3 +78,30 @@ console.log(test.entries());
 console.log(test.keys());
 console.log(test.values());
 console.log(test.length());
+
+const test2 = new HashSet();
+test2.set('apple');
+test2.set('banana');
+test2.set('carrot');
+test2.set('carrot');
+test2.set('dog');
+test2.set('apple');
+test2.set('elephant');
+test2.set('frog');
+test2.set('grape');
+test2.set('hat');
+test2.set('ice cream');
+test2.set('jacket');
+test2.set('kite');
+test2.set('frog');
+test2.set('lion');
+test2.set('moon')
+test2.set('moon')
+test2.set('banana');
+test2.set('elephant');
+console.log(test2.get('moon'));
+console.log(test2.has('banana'));
+console.log(test2.remove('jacket'));
+console.log(test2);
+console.log(test2.keys());
+console.log(test2.length());

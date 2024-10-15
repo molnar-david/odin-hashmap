@@ -1,6 +1,6 @@
 import LinkedList from "./LinkedList.js";
 
-export default class HashMap {
+export default class HashSet {
     #capacity = 16;
     #load = 0;
     #buckets = new Array(this.#capacity).fill().map((x) => new LinkedList());
@@ -16,19 +16,18 @@ export default class HashMap {
         return hashCode;
     }
 
-    set(key, value) {
+    set(key) {
         // Increase capacity if needed
         if (this.#load / this.#capacity >= this.#loadFactor) this.resize();
         const bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         while (node) {
-            if (node.value.key === key) {
-                node.value.value = value;
+            if (node.value === key) {
                 return;
             }
             node = node.nextNode;
         }
-        bucket.append({ key, value });
+        bucket.append(key);
         this.#load++;
     }
 
@@ -36,8 +35,8 @@ export default class HashMap {
         const bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         while (node) {
-            if (node.value.key === key) {
-                return node.value.value;
+            if (node.value === key) {
+                return node.value;
             }
             node = node.nextNode;
         }
@@ -48,7 +47,7 @@ export default class HashMap {
         const bucket = this.#buckets[this.hash(key)];
         let node = bucket.head;
         while (node) {
-            if (node.value.key === key) {
+            if (node.value === key) {
                 return true;
             }
             node = node.nextNode;
@@ -61,7 +60,7 @@ export default class HashMap {
         let node = bucket.head;
         let index = 0;
         while (node) {
-            if (node.value.key === key) {
+            if (node.value === key) {
                 bucket.removeAt(index);
                 this.#load--;
                 return true;
@@ -71,7 +70,7 @@ export default class HashMap {
         }
         return false;
     }
-    
+
     length() {
         return this.#load;
     }
@@ -86,43 +85,19 @@ export default class HashMap {
         this.#buckets.forEach((bucket) => {
             let node = bucket.head;
             while (node) {
-                keys.push(node.value.key);
+                keys.push(node.value);
                 node = node.nextNode;
             }
         });
         return keys;
     }
 
-    values() {
-        const values = [];
-        this.#buckets.forEach((bucket) => {
-            let node = bucket.head;
-            while (node) {
-                values.push(node.value.value);
-                node = node.nextNode;
-            }
-        });
-        return values;
-    }
-
-    entries() {
-        const entries = [];
-        this.#buckets.forEach((bucket) => {
-            let node = bucket.head;
-            while (node) {
-                entries.push([node.value.key, node.value.value]);
-                node = node.nextNode;
-            }
-        });
-        return entries;
-    }
-
     resize() {
-        const entries = this.entries();
+        const keys = this.keys();
         this.#capacity *= 2;
         this.clear();
-        entries.forEach((array) => {
-            this.set(array[0], array[1]);
+        keys.forEach((key) => {
+            this.set(key);
         });
     }
 }
